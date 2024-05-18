@@ -1,0 +1,45 @@
+<?php
+/***
+ * @file capito_defaults.module
+ */
+/**
+ * Implements hook_form_alter().
+ */
+function capito_defaults_form_alter(&$form, &$form_state, $form_id) {
+        global $user;
+        // case "vehicle_ad_node_form"
+        if ($form_id == 'vehicle_ad_node_form' AND $_GET['q'] == "node/add/vehicle-ad") {
+            // case "particular" user
+            if (in_array('particular', $user->roles)) {
+                $user = user_load($user->uid);
+                $field_items = field_get_items('user', $user, 'field_phone');
+                // Check if there are any field items.
+                if (!empty($field_items)) {
+                    // Extract the value from the field items.
+                    $phone_number = $field_items[0]['value'];
+                    $form['field_phone_vehicle_ad']['und'][0]['value']['#default_value'] = $phone_number;
+                }
+                $user_email = $user->mail;
+                $form['field_mail_vehicle_ad']['und'][0]['value']['#default_value']  = $user_email;
+        }
+        // case "professional" user
+        if (in_array('professional', $user->roles)) {
+            $user = user_load($user->uid);
+            $field_items_phone = field_get_items('user', $user, 'field_phone_company');
+            // Check if there are any field items.
+            if (!empty($field_items_phone)) {
+
+                $phone_number = $field_items_phone[0]['value'];
+                $form['field_phone_vehicle_ad']['und'][0]['value']['#default_value'] = $phone_number;
+            }
+            $field_items_email = field_get_items('user', $user, 'field_email_company');
+            // Check if there are any field items.
+            if (!empty($field_items_email)) {
+                $email = $field_items_email[0]['value'];
+                $form['field_mail_vehicle_ad']['und'][0]['value']['#default_value'] = $email;
+            }
+
+        }
+
+  }
+}

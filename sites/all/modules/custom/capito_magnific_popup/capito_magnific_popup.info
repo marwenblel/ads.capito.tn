@@ -1,0 +1,6 @@
+name = CAPITO MAGNIFIC POPUP
+description = A module that creates nice magnific popup in content images.
+package = Custom
+version = 1.0
+core = 7.x
+files[] = capito_magnific_popup.module

@@ -1,0 +1,8 @@
+<?php
+/**
+ * Implements hook_uninstall().
+ */
+function remember_ltrv_uninstall() {
+    drupal_set_message('last selection variable removed!');
+    variable_del('last_selection');
+}

@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: LENOVO
+ * Date: 15/02/2024
+ * Time: 23:37
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function top_categories_block_info() {
+    $blocks = array();
+
+    $blocks['top_cat'] = array(
+        'info' => t('Top categories'),
+        'cache' => DRUPAL_CACHE_GLOBAL,
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function top_categories_block_view($delta = '') {
+    $block = array();
+    global $base_url;
+
+    switch ($delta) {
+        case 'top_cat':
+
+            $variables = array(); //do stuff here
+            $variables['slick']['images'] = drupal_get_path('module', 'top_categories').'/images';
+
+            $variables['slick']['path'] = $base_url.'/sites/all/libraries/slick';
+
+
+            $block['subject'] = '';
+            $block['content'] = theme('slick', $variables);
+            break;
+    }
+
+    return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function top_categories_theme() {
+    return array(
+        'slick' => array(
+            'variables' => array(),
+            'template' => 'slick',
+        ),
+    );
+}

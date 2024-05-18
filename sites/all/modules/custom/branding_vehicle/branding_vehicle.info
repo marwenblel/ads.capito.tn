@@ -1,0 +1,6 @@
+name = BRANDING VEHICLE
+description = Implements specifics back-end functionnalities on branding vehicle vocabulary.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = branding_vehicle.module

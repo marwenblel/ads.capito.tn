@@ -1,0 +1,38 @@
+/*triptych css*/
+#triptych-wrapper {
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#triptych {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#triptych h2 {
+    text-align: left!important;
+    text-transform: uppercase!important;
+}
+#triptych a {
+    color: #292929;
+    opacity: 0.9;
+}
+
+.region-triptych-first,
+.region-triptych-middle,
+.region-triptych-last {
+    flex: 1 0 30%; /* Adjust width as needed */
+    margin: 0 1%; /* Adjust margin between columns */
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+/*
+@media (max-width: 768px) {
+    .region-triptych-first,
+    .region-triptych-middle,
+    .region-triptych-last {
+        flex-basis: 100%;
+        margin: 0;
+    }
+}*/

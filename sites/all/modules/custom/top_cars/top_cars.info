@@ -1,0 +1,15 @@
+name = TOP CARS
+description = A module that prepare top cars block.
+package = Custom
+version = 1.0
+core = 7.x
+files[] = top_cars.module
+
+; we have comment this because file already called in top categories module
+;stylesheets[all][] = ../../../libraries/slick/slick.css
+;stylesheets[all][] = ../../../libraries/slick/slick-theme.css
+
+
+
+
+

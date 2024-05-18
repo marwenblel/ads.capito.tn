@@ -1,0 +1,58 @@
+body.page-node-40 #main-wrapper #block-system-main {
+    background-color: #f4f9fe;
+    border-radius: 5px;
+}
+body.page-node-40 #main-wrapper #block-system-main #node-40 .row .col-3 #v-pills-tab {
+    /*border-left: 2px solid #ec5a13; 
+    border-right: 2px solid #ec5a13; 
+    border-top: 2px solid #ec5a13;
+    border-bottom: 2px solid #ec5a13;*/
+}
+body.page-node-40 #main-wrapper #block-system-main #node-40 .row .col-3 #v-pills-tab .nav-link {
+    text-align: center;
+    outline: none;
+    background-color: #f4f9fe;
+    /*border-right: 2px solid #ec5a13;*/
+}
+body.page-node-40 #main-wrapper #block-system-main #node-40 .row .col-3 #v-pills-tab .nav-link.active {
+    outline: none;
+    color: #ec5a13;
+    background-color: transparent;
+    /*border: none;*/
+    font-weight: bold;
+}
+body.page-node-40 #main-wrapper #block-system-main #node-40 .row .col-3 #v-pills-tab .nav-link.active::after {
+    /*content: "";
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    background-image: url(../images/sup-icon.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;*/
+    position: absolute;
+    content: "";
+    background-image: url(../images/sup-icon.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    width:40px;
+    height: 40px;
+    color: #ec5a13;
+    right: -15px;
+
+}
+body.page-node-40 #node-40 #v-pills-tab button {
+    height: 40px;
+    max-height: 40px;
+    border-radius: 0px;
+}
+body.page-node-40 #node-40 #v-pills-tab button svg {
+    float: left;
+}
+body.page-node-40 #main-wrapper #block-system-main #node-40 .row ul {
+    list-style-type: none;
+}
+body.page-node-40 #main-wrapper #block-system-main #node-40 .row li a {
+    color: #000000;
+}

@@ -1,0 +1,29 @@
+/** CSS FOR: region header **/
+#main-menu {
+    top: -10px;
+    position: relative;
+}
+#name-and-slogan {
+    padding-top: 10px;
+}
+input::file-selector-button {
+    font-size: 1.5em;
+    color: white;
+    background-color: #0f4bca;
+    border: 3px solid white;
+    border-radius: 8px;
+}
+
+
+body,
+h1,h2,h3,h4,h5,a,div,span,
+nav.main-menu .btn-group,
+nav.main-menu .btn-group a,
+nav.main-menu .btn-group button {
+    font-family: 'Lato', sans-serif!important;
+}
+/* triptych */
+#triptych {
+    width: 100%;
+    margin: 0;
+}

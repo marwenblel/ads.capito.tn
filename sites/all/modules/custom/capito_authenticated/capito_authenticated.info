@@ -1,0 +1,6 @@
+name = CAPITO FOR AUTHENTICATED USER
+description = Implements specifics back-end functionnalities on authenticated user.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = capito_authenticated.module

@@ -1,0 +1,18 @@
+body.page-search-vehicle-ad .view-search-car-ads .view-filters #edit-price-wrapper input {
+    width: 100px;
+}
+body.page-search-vehicle-ad .view-search-car-ads .view-filters input#edit-keyword {
+    width: 190px;
+}
+body.page-search-vehicle-ad .view-search-car-ads .view-content .views-table {
+    border: double 1px #d3d3d3;
+}
+body.page-search-vehicle-ad .view-search-car-ads .view-content .views-table tr {
+    background-color: #ffffff;
+}
+body.page-search-vehicle-ad .view-search-car-ads .view-content .views-table tr th {
+    background-color: #ec5a13;
+}
+
+
+

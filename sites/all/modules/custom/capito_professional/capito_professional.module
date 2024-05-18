@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Main file, which implements main functionnalities for the capito professional module .
+ *
+ * @ingroup capito professional
+ */
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function capito_professional_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    if (in_array("professional", $user->roles)) {
+        if($form_id == 'vehicle_ad_node_form') {
+            // DO1
+            drupal_set_title("Déposer une annonce véhicule en tanque professionnel");
+        }
+        if($form_id == 'user_profile_form') {
+            // set default value if account type to professional
+             $form['field_account_type']['und']['#default_value'][0] = 'professional';
+        }
+
+    }
+}

@@ -1,0 +1,10 @@
+name = TOP MOTOS
+description = A module that prepare top motos block.
+package = Custom
+version = 1.0
+core = 7.x
+files[] = top_motos.module
+
+
+
+

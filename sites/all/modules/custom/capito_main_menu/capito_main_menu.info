@@ -1,0 +1,8 @@
+name = CAPITO MAIN MENU
+description = A module that creates nice menu based on drupal main-menu items.
+package = Custom
+version = 1.0
+core = 7.x
+files[] = capito_main_menu.module
+
+stylesheets[all][] = css/menu.css

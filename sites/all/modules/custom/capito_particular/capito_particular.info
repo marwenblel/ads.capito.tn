@@ -1,0 +1,6 @@
+name = CAPITO FOR PARTICULAR
+description = Implements specifics back-end functionnalities on particular user.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = capito_particular.module

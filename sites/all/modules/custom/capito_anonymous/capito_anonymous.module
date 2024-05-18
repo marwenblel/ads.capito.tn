@@ -1,0 +1,166 @@
+<?php
+/**
+ * @file
+ * Main file, which implements main functionnalities for the capito anonymous module .
+ *
+ * @ingroup capito anonymous
+ */
+/**
+ * Implements hook_url_inbound_alter().
+ * @param $path
+ * @param $original_path
+ * @param $path_language
+ */
+function capito_anonymous_url_inbound_alter(&$path, $original_path, $path_language) {
+    global $user;
+    if (in_array("anonymous user", $user->roles)) {
+        if ($path == 'node/add/vehicle-ad') {
+            $path = 'user/login';
+        }
+        if ($path == 'node/add/moto-ad') {
+            $path = 'user/login';
+        }
+    }
+}
+/**
+ * Implements hook_user_login().
+ * @param $edit
+ * @param $account
+ */
+function capito_anonymous_user_login(&$edit, $account) {
+    $redirect_url     = $GLOBALS["_SERVER"]["REDIRECT_URL"];
+    $base_path        = $GLOBALS["base_path"];
+    if($base_path == '/') {
+        $edit['redirect'] = $redirect_url;
+    } else {
+        $edit['redirect'] = str_replace($base_path, "", $redirect_url);
+    }
+}
+/**
+ * Implements hook_menu_alter().
+ * @param $items
+ */
+function capito_anonymous_menu_alter(&$items) {
+    // DO1
+    $items['user/register']['title'] = "Créer un nouveau compte";
+    // DO2
+    $items['user/login']['title']    = "Se connecter";
+    // DO3
+    $items['user/password']['title'] = "Demander un nouveau mot de passe";
+}
+/**
+ * Implements hook_form_user_register_form_alter().
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function capito_anonymous_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    if (in_array("anonymous user", $user->roles)) {
+        // DO1
+        drupal_set_title("Créer un nouveau compte");
+        $form['account']['name']['#title']       = "Utilisateur";
+        $form['account']['name']['#description'] = "";
+        $form['account']['mail']['#title']       = "Email";
+        $form['account']['mail']['#description'] = "";
+        $form['actions']['submit']['#value']     = "Créer un nouveau compte";
+    }
+}
+/**
+ * Implements hook_form_alter().
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function capito_anonymous_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    if (in_array("anonymous user", $user->roles)) {
+        // DO2
+        if($form_id == 'user_pass') {
+            drupal_set_title("Demander un nouveau mot de passe");
+            $form['name']['#title']              = 'Nom utilisateur ou adresse E-mail';
+            $form['actions']['submit']['#value'] = "Envoyer un nouveau mot de passe par e-mail";
+        }
+        if($form_id == 'user_login') {
+            // DO3
+            drupal_set_title("Se connecter");
+            $form['name']['#title']       = 'Nom utilisateur';
+            $form['name']['#description'] = 'Entrer votre nom utilisateur';
+            $form['pass']['#title']       = 'Mot de passe';
+            $form['pass']['#description'] = "Entrer le mot de passe associé à votre nom d'utilisateur";
+            $form['actions']['submit']['#value'] = "Se connecter";
+        }
+    }
+    if ($form_id == 'user_profile_form' AND !in_array("administrator", $user->roles) AND !in_array("webmaster", $user->roles)) {
+        // Add a custom submit handler to the form
+        $form['#submit'][] = 'custom_profile_alter_submit';
+    }
+}
+/**
+ * Implements custom_profile_alter_submit() function.
+ * @param $form
+ * @param $form_state
+ */
+function custom_profile_alter_submit($form, &$form_state) {
+    $user = user_load($form['#user']->uid);
+    $new_account_type = $form_state['values']['field_account_type']['und'][0]['value'];
+    if ($user) {
+        if (in_array("particular", $user->roles) AND ($new_account_type == "professional")) {
+            // change to professional
+            replace_role(5, 6, $user->uid);
+        }
+        elseif (in_array("professional", $user->roles) AND ($new_account_type == "particular")) {
+            // change to particular
+            replace_role(6, 5, $user->uid);
+        }
+        else {
+            custom_add_role_to_user($user, $new_account_type);
+        }
+    }
+}
+/**
+ * Implements replace_role() function.
+ * @param $role_to_replace
+ * @param $role_to_replace_by
+ * @param $uid
+ */
+function replace_role($role_to_replace, $role_to_replace_by, $uid) {
+    $role_to_replace = (int) $role_to_replace;
+    $role_to_replace_by = (int) $role_to_replace_by;
+    $uid = (int) $uid;
+    // Load user by user ID.
+    $user = user_load($uid);
+    if (array_key_exists($role_to_replace, $user->roles)) {
+        // Remove old role.
+        unset($user->roles[$role_to_replace]);
+        // Load new role by role ID.
+        $role = user_role_load($role_to_replace_by);
+        // Add new role.
+        $user->roles = $user->roles + [$role->rid => $role->name];
+        // Save.
+        user_save($user);
+    }
+}
+/**
+ * Implements custom_add_role_to_user() function.
+ * @param $user
+ * @param $role_name
+ */
+function custom_add_role_to_user($user, $role_name) {
+    // For convenience, we'll allow user ids as well as full user objects.
+    if (is_numeric($user)) {
+        $user = user_load($user);
+    }
+    // If the user doesn't already have the role, add the role to that user.
+    $key = array_search($role_name, $user->roles);
+    if ($key == FALSE) {
+        // Get the rid from the roles table.
+        $roles = user_roles(TRUE);
+        $rid = array_search($role_name, $roles);
+        if ($rid != FALSE) {
+            $new_role[$rid] = $role_name;
+            $all_roles = $user->roles + $new_role; // Add new role to existing roles.
+            user_save($user, array('roles' => $all_roles));
+        }
+    }
+}

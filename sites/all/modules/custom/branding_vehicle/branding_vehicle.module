@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Main file, which implements main functionalities for the branding vehicle module .
+ *
+ * @ingroup branding vehicle
+ */
+/**
+ * Implements hook_node_presave().
+ * @param $node
+ * Attach newly added (vehicle ad) node to all parents of selected (branding vehicle) term on vehicle ad form;
+ * Drupal 7 code, usually attach nodes with term reference fields on the selected terms and not its parents.
+ */
+function branding_vehicle_node_presave($node) {
+    if($node->type == 'vehicle_ad') {
+        if(isset($node->field_branding_vehicle_ad['und']) &&
+            isset($node->field_branding_vehicle_ad['und'][0]) &&
+            isset($node->field_branding_vehicle_ad['und'][0]['tid'])) {
+            $parents_terms = taxonomy_get_parents_all($node->field_branding_vehicle_ad['und'][0]['tid']);
+            foreach($parents_terms as $key => $value) {
+                $node->field_branding_vehicle_ad['und'][$key]['tid'] = $value->tid;
+            }
+        }
+    }
+}
+/**
+ * Implements hook_field_formatter_info().
+ * @return array
+ */
+function branding_vehicle_field_formatter_info() {
+    return array(
+        'branding_vehicle_formatter' => array(
+            'label'       => t('Branding Vehicle Formatter'),
+            'field types' => array('taxonomy_term_reference'),
+        ),
+    );
+}
+/**
+ * Implements hook_field_formatter_view().
+ * @param $entity_type
+ * @param $entity
+ * @param $field
+ * @param $instance
+ * @param $langcode
+ * @param $items
+ * @param $display
+ * @return array
+ */
+function branding_vehicle_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+    $element = array();
+    foreach ($items as $delta => $item) {
+        $term = taxonomy_term_load($item['tid']);
+        $parents = taxonomy_get_parents($term->tid);
+        // Get all parent terms
+        $parent_terms = array();
+        foreach ($parents as $parent) {
+            $parent_terms[] = $parent->name;
+        }
+
+        // Add current term name
+        $parent_terms[] = $term->name;
+        $element[$delta] = array('#markup' => implode(': ', $parent_terms));
+    }
+    return $element;
+}

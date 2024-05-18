@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file capito_user_teaser.module
+ */
+/**
+ * Implements hook_block_info();
+ * @return mixed
+ */
+function capito_user_teaser_block_info() {
+    $blocks['user_teaser'] = array(
+        'info' => t('User Teaser'),
+    );
+    return $blocks;
+}
+/**
+ * Implements hook_block_view().
+ * @param string $delta
+ * @return array
+ */
+function capito_user_teaser_block_view($delta = '') {
+    $block = array();
+    switch ($delta) {
+        case 'user_teaser':
+            if (arg(0) == 'node' && is_numeric(arg(1))) {
+                $nid = arg(1);
+                $node = node_load($nid);
+                if ($node) {
+                    $author = user_load($node->uid);
+                    if ($author) {
+                        $block['subject'] = t('User Teaser');
+                        $user_picture = theme('user_picture', array('account' => $author));
+                        // Count the number of nodes published by the user
+                        $node_count = db_query("SELECT COUNT(*) FROM {node} WHERE uid = :uid AND status = :status", array(':uid' => $author->uid, ':status' => NODE_PUBLISHED))->fetchField();
+                        $block['content'] = theme('capito_user_teaser_block', array('username' => $author->name, 'uid' => $author->uid, 'user_picture' => $user_picture, 'node_count' => $node_count));
+                    }
+                }
+            }
+            break;
+    }
+    return $block;
+}
+/**
+ * Implements hook_theme().
+ * @return array
+ */
+function capito_user_teaser_theme() {
+    return array(
+        'capito_user_teaser_block' => array(
+            'variables' => array('username'     => NULL,
+                                 'uid'          => NULL,
+                                 'user_picture' => NULL,
+                                 'node_count'   => NULL),
+                                 'template'     => 'capito-user-teaser-block',
+        ),
+    );
+}

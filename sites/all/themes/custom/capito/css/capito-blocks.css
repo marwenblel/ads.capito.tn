@@ -1,0 +1,133 @@
+/*css for block top categories*/
+    #block-top-categories-top-cat .slider {
+        width: 100%;
+    }
+
+    #block-top-categories-top-cat .slick-slide {
+        margin: 0px 20px;
+    }
+
+    #block-top-categories-top-cat .slick-slide img {
+        width: 100%;
+    }
+    #block-top-categories-top-cat .slick-slide img:hover {
+        transform: scale(0.8);
+        overflow: hidden;
+    }
+
+
+
+    #block-top-categories-top-cat .slick-prev:before,
+    #block-top-categories-top-cat .slick-next:before {
+        color: black;
+    }
+
+    #block-top-categories-top-cat .slick-slide {
+        transition: all ease-in-out .3s;
+        opacity: .2;
+    }
+
+    #block-top-categories-top-cat .slick-active {
+        opacity: .5;
+    }
+
+    #block-top-categories-top-cat .slick-current {
+        opacity: 1;
+    }
+    #block-top-categories-top-cat .slider img {
+        border-radius: 10px;
+    }
+
+    /* css for block top cars */
+        #block-top-cars-top-c .slider {
+        width: 100%;
+    }
+
+    #block-top-cars-top-c .slick-slide {
+        margin: 0px 20px;
+    }
+
+    #block-top-cars-top-c .slick-slide img {
+        width: 100%;
+    }
+
+    #block-top-cars-top-c .slick-prev:before,
+    #block-top-cars-top-c .slick-next:before {
+        color: black;
+    }
+
+    #block-top-cars-top-c .slick-slide {
+        transition: all ease-in-out .3s;
+        opacity: .2;
+    }
+
+    #block-top-cars-top-c .slick-active {
+        opacity: .5;
+    }
+
+    #block-top-cars-top-c .slick-current {
+        opacity: 1;
+    }
+
+/* css for block top motos */
+#block-top-motos-top-m .slider {
+    width: 100%;
+}
+
+#block-top-motos-top-m .slick-slide {
+    margin: 0px 20px;
+}
+
+#block-top-motos-top-m .slick-slide img {
+    width: 100%;
+}
+
+#block-top-motos-top-m .slick-prev:before,
+#block-top-motos-top-m .slick-next:before {
+    color: black;
+}
+
+#block-top-motos-top-m .slick-slide {
+    transition: all ease-in-out .3s;
+    opacity: .2;
+}
+
+#block-top-motos-top-m .slick-active {
+    opacity: .5;
+}
+
+#block-top-motos-top-m .slick-current {
+    opacity: 1;
+}
+
+
+/* css for block top real estates */
+#block-top-real-estates-top-re .slider {
+    width: 100%;
+}
+
+#block-top-real-estates-top-re .slick-slide {
+    margin: 0px 20px;
+}
+
+#block-top-real-estates-top-re .slick-slide img {
+    width: 100%;
+}
+
+#block-top-real-estates-top-re .slick-prev:before,
+#block-top-real-estates-top-re .slick-next:before {
+    color: black;
+}
+
+#block-top-real-estates-top-re .slick-slide {
+    transition: all ease-in-out .3s;
+    opacity: .2;
+}
+
+#block-top-real-estates-top-re .slick-active {
+    opacity: .5;
+}
+
+#block-top-real-estates-top-re .slick-current {
+    opacity: 1;
+}

@@ -1,0 +1,6 @@
+name = CAPITO USER TEASER
+description = Implements user teaser block that display user info in pages with specific nodes.
+package = Custom
+version = 1.0
+core = 7.x
+files[] = capito_user_teaser.module

@@ -1,0 +1,37 @@
+/*CSS FOR PAGES*/
+.page-user-register #main #content h1#page-title,
+.page-user #main #content h1#page-title,
+.page-user-password #main #content h1#page-title {
+    margin: 0px;
+}
+/** css for page (page-node-add-vehicle-ad) **/
+.page-node-add-vehicle-ad #main-wrapper #main #content h1#page-title {
+    margin: 0;
+}
+.page-node-add-vehicle-ad #main-wrapper {
+    background-color: #ffffff;
+}
+.page-node-add-vehicle-ad #main {
+    background-color: #ffffff;
+}
+#first-time {
+    display: none;
+}
+
+.node-type-vehicle-ad div.node-vehicle-ad.node-full .field-name-field-photos-vehicle-ad .field-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.node-type-vehicle-ad div.node-vehicle-ad.node-full .field-name-field-photos-vehicle-ad .field-item {
+    width: 100%;
+    height: auto;
+}
+
+.node-type-vehicle-ad div.node-vehicle-ad.node-full .field-name-field-photos-vehicle-ad .field-item img {
+    width: 100%;
+    height: 200px;
+    display: block;
+}

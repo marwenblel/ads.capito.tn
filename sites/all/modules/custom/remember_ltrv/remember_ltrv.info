@@ -1,0 +1,9 @@
+name = REMEMBER LAST TERM REFERENCE VALUES
+description = Implements specifics back-end functionnalities for webmastering CAPITO application.
+package = Custom
+version = VERSION
+core = 7.x
+configure = admin/config/user-interface/remember_ltrv
+
+files[] = remember_ltrv.module
+files[] = remember_ltrv.install

@@ -1,0 +1,11 @@
+#main-wrapper {
+    height: auto;
+    z-index: 1;
+    background-color: #ffffff;
+}
+/*
+@media only screen and (min-width: 1501px) {
+    #main-wrapper {
+        margin-top: 100px!important;
+    }
+}*/

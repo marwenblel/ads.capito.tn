@@ -1,0 +1,6 @@
+name = CAPITO FOR PROFESSIONAL
+description = Implements specifics back-end functionnalities on professional user.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = capito_professional.module

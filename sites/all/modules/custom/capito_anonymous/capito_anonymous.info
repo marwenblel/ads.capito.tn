@@ -1,0 +1,6 @@
+name = CAPITO FOR ANONYMOUS
+description = Implements specifics back-end functionnalities on anonymous user.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = capito_anonymous.module

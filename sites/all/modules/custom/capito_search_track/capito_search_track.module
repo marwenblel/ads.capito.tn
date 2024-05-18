@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * Implements hook_node_access().
+ */
+function capito_search_track_url_inbound_alter(&$path, $original_path, $path_language) {
+    global $user;
+    if (in_array("professional", $user->roles) OR in_array("particular", $user->roles)) {
+
+        if (substr($path, 0, 17 ) === 'search/vehicle-ad') {
+            $search_query = $_SERVER['QUERY_STRING'];
+						
+			// Use the Drupal database abstraction layer to query the database.
+			$query = db_select('capito_search_vehicle', 't')
+			  ->condition('t.uid', $user->uid) // Filter by uid
+			  ->countQuery(); // Count the number of rows
+
+			$count = $query->execute()->fetchField();
+			
+			if ($count > 10) {
+			  // If the count is greater than 10, remove all records where uid = 4.
+			  db_delete('capito_search_vehicle')
+				->condition('uid', $user->uid)
+				->execute();
+			}
+
+
+            if(isset($search_query) AND $search_query != "") {
+                //*********************
+
+
+                // Get the search parameters from the request
+                $search_params = serialize($search_query);
+
+                // Store the search parameters along with the user ID
+                $search_data = array(
+                    'uid' => $user->uid,
+                    'search_params' => $search_params,
+                    'timestamp' => REQUEST_TIME,
+                );
+
+                // Save the search data to the custom table
+                db_insert('capito_search_vehicle')
+                    ->fields($search_data)
+                    ->execute();
+				
+            }
+
+
+        }
+
+    }
+
+}
+/**
+ * Implements hook_permission().
+ */
+function capito_search_track_permission() {
+    return array(
+        'access_search_track' => array(
+            'title'       => t('Access search track page'),
+            'description' => t('Allows users to access the search track page.'),
+        ),
+    );
+}
+function capito_search_track_menu() {
+    $items = array();
+
+    $items['user/my-research'] = array(
+        'title'            => 'Mes recherches',
+        'page callback'    => 'capito_search_track_capito_search_vehicle_list',
+        'access arguments' => array('access_search_track'), // Change access as needed.
+        'type'             => MENU_NORMAL_ITEM,
+    );
+    $items['user/my-research/remove/%'] = array(
+        'title'            => 'Supprimer recherche',
+        'page callback'    => 'capito_search_track_remove_search',
+        'page arguments'   => array(3),
+        'access arguments' => array('access_search_track'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+}
+
+/**
+ * @return string
+ */
+function capito_search_track_capito_search_vehicle_list() {
+    global $base_url;
+    $output = '';
+
+    // Get the current user's UID.
+    global $user;
+    $uid = $user->uid;
+
+    // Query the capito_search_vehicle table.
+    $result = db_query("SELECT * FROM {capito_search_vehicle} WHERE uid = :uid", array(':uid' => $uid));
+
+
+    $output .= '<table><thead><tr><th>Date</th><th>Lien</th><th>Operations</th></tr></thead><tbody>';
+    // Generate the list of elements.
+    foreach ($result as $row) {
+
+		// Customize the output format as per your requirement.
+        $link = $base_url."/search/vehicle-ad?". unserialize($row->search_params);
+        $remove_link = $base_url."/user/my-research/remove/". $row->id;
+		$output .= '<tr><td class="date">' . date('d-m-Y H:i:s', $row->timestamp) . '</td><td class="search"><a href="'. $link  .'">Recherche</a></td><td class="search"><a href="'. $remove_link  .'">Supprimer</a></td></tr>';
+		
+    }
+	$output .= '</tbody></table>';
+
+    return $output;
+}
+
+/**
+ * Page callback for removing research.
+ */
+function capito_search_track_remove_search($nid) {
+    global $user;
+
+    // Query your custom database table to check if the ID belongs to the connected user's UID.
+    $query = db_select('capito_search_vehicle', 't');
+    $query->addField('t', 'id');
+    $query->condition('t.id', $nid);
+    $query->condition('t.uid', $user->uid);
+    $result = $query->execute();
+
+    // Check if the query returned any results.
+    if ($result->rowCount() > 0) {
+        db_delete('capito_search_vehicle')
+            ->condition('id', $nid)
+            ->execute();
+        drupal_set_message("Element de recherche a été supprimé avec succès!!");
+        drupal_goto('user/my-research');
+    }
+    else {
+        drupal_set_message("Attention!", "warning");
+        drupal_goto('user/my-research');
+    }
+}
+

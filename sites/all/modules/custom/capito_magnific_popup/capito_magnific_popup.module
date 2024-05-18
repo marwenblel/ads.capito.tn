@@ -1,0 +1,160 @@
+<?php
+/**
+ * Implements hook_init().
+ */
+function capito_magnific_popup_init() {
+    // Add external CSS file.
+    drupal_add_css('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', array('type' => 'external'));
+
+    // Add inline CSS.
+    $css = array(
+        '#type' => 'html_tag',
+        '#tag' => 'style',
+        '#value' => '.popup-img { max-width: 100%; height: auto; }',
+    );
+    drupal_add_html_head($css, 'capito_magnific_popup_inline_css');
+    drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array('type' => 'external', 'scope' => 'footer'));
+}
+/**
+ * Implements hook_theme().
+ */
+function capito_magnific_popup_theme() {
+    return array(
+        'image_custom_theme' => array(
+            'variables' => array('path' => NULL, 'alt' => ''),
+            'template' => 'image-custom-theme',
+        ),
+    );
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function capito_magnific_popup_field_formatter_info() {
+    return array(
+        'capito_magnific_popup_custom_image_formatter' => array(
+            'label' => t('Magnific Image Formatter'),
+            'field types' => array('image'),
+        ),
+    );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function capito_magnific_popup_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+    $element = array();
+
+    foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+            '#theme' => 'image_custom_theme',
+            '#path' => file_create_url($item['uri']),
+            '#alt' => $item['alt'],
+        );
+    }
+
+    return $element;
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function capito_magnific_popup_node_view($node, $view_mode, $langcode) {
+    // Check if the node type is "vehicle_ad" and the view mode is "full".
+    if ($node->type == 'vehicle_ad' && $view_mode == 'full') {
+
+        // Initialize an array to store image URLs.
+        $image_urls = array();
+        // Check if the "field_photos_vehicle_ad" field exists and has values.
+        if (isset($node->field_photos_vehicle_ad['und']) && !empty($node->field_photos_vehicle_ad['und'])) {
+            // Loop through each item in the field.
+            foreach ($node->field_photos_vehicle_ad['und'] as $item) {
+                // Check if the item contains a file entity.
+                if (!empty($item['uri'])) {
+                    // Get the URL of the image file.
+                    $image_urls[] = file_create_url($item['uri']);
+                }
+            }
+        }
+
+        // Add additional field with markup.
+        $node->content['additional_field'] = array(
+            '#markup' => '<div id="my-popup" class="mfp-hide white-popup">Inline popup</div>',
+            '#weight' => 100, // Adjust weight as needed to control the display order.
+        );
+
+        // add js
+        $js = "(function($) {";
+        $js.= "$('.open-popup').magnificPopup({";
+        $js.= "items: [";
+        // Loop through each URL in the array
+        foreach ($image_urls as $url) {
+         // Append JavaScript code for each URL
+                $js .= "
+        {
+            src: '$url',
+        },";
+            }
+        $js .= "
+            ],
+            gallery: {
+                enabled: true
+            },
+            type: 'image' // this is a default type
+        });
+
+        })(jQuery);
+        ";
+        drupal_add_js($js, array('type' => 'inline', 'scope' => 'footer'));
+    }
+
+    // Check if the node type is "vehicle_ad" and the view mode is "full".
+    if ($node->type == 'real_estate_house_ad' && $view_mode == 'full') {
+
+        // Initialize an array to store image URLs.
+        $image_urls = array();
+        // Check if the "field_photos_re_house_ad" field exists and has values.
+        if (isset($node->field_photos_re_house_ad['und']) && !empty($node->field_photos_re_house_ad['und'])) {
+            // Loop through each item in the field.
+            foreach ($node->field_photos_re_house_ad['und'] as $item) {
+                // Check if the item contains a file entity.
+                if (!empty($item['uri'])) {
+                    // Get the URL of the image file.
+                    $image_urls[] = file_create_url($item['uri']);
+                }
+            }
+        }
+
+        // Add additional field with markup.
+        $node->content['additional_field'] = array(
+            '#markup' => '<div id="my-popup" class="mfp-hide white-popup">Inline popup</div>',
+            '#weight' => 100, // Adjust weight as needed to control the display order.
+        );
+
+        // add js
+        $js = "(function($) {";
+        $js.= "$('.open-popup').magnificPopup({";
+        $js.= "items: [";
+        // Loop through each URL in the array
+        foreach ($image_urls as $url) {
+            // Append JavaScript code for each URL
+            $js .= "
+        {
+            src: '$url',
+        },";
+        }
+        $js .= "
+            ],
+            gallery: {
+                enabled: true
+            },
+            type: 'image' // this is a default type
+        });
+
+        })(jQuery);
+        ";
+        drupal_add_js($js, array('type' => 'inline', 'scope' => 'footer'));
+    }
+}
+

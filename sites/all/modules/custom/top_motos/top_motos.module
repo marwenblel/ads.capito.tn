@@ -1,0 +1,149 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: LENOVO
+ * Date: 15/02/2024
+ * Time: 23:37
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function top_motos_block_info() {
+    $blocks = array();
+
+    $blocks['top_m'] = array(
+        'info' => t('Top motos'),
+        'cache' => DRUPAL_CACHE_GLOBAL,
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function top_motos_block_view($delta = '') {
+    $block = array();
+    global $base_url;
+
+    switch ($delta) {
+        case 'top_m':
+
+          $variables = array(); //do stuff here
+
+          $variables['slick_motos'] = $base_url.'/sites/all/libraries/slick';
+          $variables['slick_motos_data'] = _get_last_moto_ads();
+
+
+
+          $block['subject'] = '';
+            $block['content'] = theme('slick_motos', $variables);
+            break;
+    }
+
+    return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function top_motos_theme() {
+    return array(
+        'slick_motos' => array(
+            'variables' => array(),
+            'template' => 'slick_motos',
+        ),
+    );
+}
+/**
+ *
+ */
+function _get_last_moto_ads() {
+
+  $last_9_moto_ads = array();
+
+  // Define the query to fetch nodes of type "vehicle_ad".
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'vehicle_ad')
+    ->propertyOrderBy('created', 'DESC') // Order by creation date, descending.
+    ->range(0, 9); // Limit the result to the last 9 nodes.
+
+  // Execute the query.
+  $result = $query->execute();
+
+  // Check if any nodes were found.
+  if (isset($result['node'])) {
+    $node_ids = array_keys($result['node']);
+
+    // Load the nodes.
+    $nodes = node_load_multiple($node_ids);
+
+    // Now $nodes contains the last 9 nodes of type "vehicle_ad".
+    foreach ($nodes as $node) {
+      // Perform actions with $node.
+      // For example, print node title.
+      $last_9_moto_ads[$node->nid]['title'] = $node->title;
+
+      if(isset($node->field_photos_vehicle_ad['und'][0]['uri'])) {
+          $image_uri = $node->field_photos_vehicle_ad['und'][0]['uri'];
+          // Convert the URI to a URL
+          $image_url = file_create_url($image_uri);
+          $last_9_moto_ads[$node->nid]['image'] = $image_url;
+
+      } else {
+          $last_9_moto_ads[$node->nid]['image'] = drupal_get_path('module', 'top_motos').'/images/no-image.jpg';
+      }
+
+      $last_9_moto_ads[$node->nid]['link_node'] = url('node/' . $node->nid);
+      $last_9_moto_ads[$node->nid]['price'] = $node->field_price_vehicle_ad['und'][0]['value'];
+      $last_9_moto_ads[$node->nid]['date'] = get_date_time_in_french2($node->created);
+
+    }
+  }
+
+  return $last_9_moto_ads;
+
+}
+/**
+ * Get date and time in French language.
+ *
+ * @param int $timestamp
+ *   The Unix timestamp.
+ *
+ * @return string
+ *   The formatted date and time in French language.
+ */
+function get_date_time_in_french2($timestamp) {
+    // Days translation array from English to French.
+    $days_translation = array(
+        'Monday' => 'Lundi',
+        'Tuesday' => 'Mardi',
+        'Wednesday' => 'Mercredi',
+        'Thursday' => 'Jeudi',
+        'Friday' => 'Vendredi',
+        'Saturday' => 'Samedi',
+        'Sunday' => 'Dimanche',
+    );
+    // Months translation array from English to French.
+    $months_translation = array(
+        'January' => 'Janvier',
+        'February' => 'Février',
+        'March' => 'Mars',
+        'April' => 'Avril',
+        'May' => 'Mai',
+        'June' => 'Juin',
+        'July' => 'Juillet',
+        'August' => 'Août',
+        'September' => 'Septembre',
+        'October' => 'Octobre',
+        'November' => 'Novembre',
+        'December' => 'Décembre',
+    );
+
+    // Format the date and time manually using the translation arrays.
+    $formatted_date = $days_translation[date('l', $timestamp)] . ' ' . date('d', $timestamp) . ' ' . $months_translation[date('F', $timestamp)] . ' ' . date('Y H:i', $timestamp);
+
+    return $formatted_date;
+}

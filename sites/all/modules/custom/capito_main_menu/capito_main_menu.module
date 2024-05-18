@@ -1,0 +1,59 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: LENOVO
+ * Date: 25/01/2024
+ * Time: 22:09
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function capito_main_menu_block_info() {
+    $blocks = array();
+
+    $blocks['cp_main_menu'] = array(
+        'info' => t('Capito Main Menu'),
+        'cache' => DRUPAL_CACHE_GLOBAL,
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function capito_main_menu_block_view($delta = '') {
+    $block = array();
+
+
+
+    switch ($delta) {
+        case 'cp_main_menu':
+
+            $variables = array(); //do stuff here
+
+            $variables['tree'] = menu_tree_all_data('main-menu'); // Change 'main-menu' to your actual menu name
+
+
+            $block['subject'] = '';
+            $block['content'] = theme('menu', $variables);
+            break;
+    }
+
+    return $block;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function capito_main_menu_theme() {
+    return array(
+        'menu' => array(
+            'variables' => array(),
+            'template' => 'menu',
+        ),
+    );
+}
+

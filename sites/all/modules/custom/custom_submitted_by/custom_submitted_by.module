@@ -1,0 +1,47 @@
+<?php
+/**
+ * @file custom_submitted_by.module
+ */
+/**
+ * Implements hook_preprocess_node().
+ * @param $variables
+ */
+function custom_submitted_by_preprocess_node(&$variables) {
+    // Get the node object
+    $node = $variables['node'];
+
+    // Check if the node type is 'article' or any other node type you want to customize
+    if ($node->type == 'vehicle_ad') {
+
+    // Customize the submitted by text
+    $variables['submitted'] = t('Publiée par') . ' ' . $variables['name'] . ' ' . t('le') . ' ' . en_date_to_fr_date($variables['date']);
+    }
+}
+
+/**
+ * Implements en_date_to_fr_date().
+ * @param $en_date string
+ * @return string
+ */
+function en_date_to_fr_date($en_date) {
+    // Create a DateTime object by specifying the format
+    $datetime = DateTime::createFromFormat('D, m/d/Y - H:i', $en_date);
+
+    // Translate English day and month names to French
+    $english_day_names = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+    $french_day_names = array('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche');
+
+    $english_month_names = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+    $french_month_names = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
+
+    // Get the day of the week and month
+    $day_of_week = $datetime->format('N') - 1; // 1 (for Monday) through 7 (for Sunday)
+    $month = $datetime->format('n') - 1; // 1 (for January) through 12 (for December)
+
+    // Format the DateTime object with French day and month names and 24-hour time format
+    $formatted_date_time = $french_day_names[$day_of_week] . ', ';
+    $formatted_date_time .= $datetime->format('d ') . $french_month_names[$month];
+    $formatted_date_time .= $datetime->format(' Y - H:i');
+
+    return $formatted_date_time; // Output: "mardi, 21 février 2023 - 15:00"
+}

@@ -1,0 +1,67 @@
+etape 1:
+
+
+  <!-- Include Magnific Popup CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+  <style>
+    /* Style for image popup */
+    .popup-img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+
+--------------------------------------------------------------------
+
+etape 2:
+
+	<img src="1.jpg" class="open-popup" height="200" width="200" />
+	<img src="2.jpg" class="open-popup" height="200" width="200" />
+	<img src="3.jpg" class="open-popup" height="200" width="200" />
+
+-------------------------------------------------------------------------
+
+etape 3:
+
+<div id="my-popup" class="mfp-hide white-popup">
+	  Inline popup
+</div>
+	
+	
+	  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Include Magnific Popup JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+			$('.open-popup').magnificPopup({
+				items: [
+				  {
+					src: 'https://ads.capito.tn/sites/default/files/styles/large/public/vehicles-ads-photos/1_2.jpg',
+					title: 'Peter & Paul fortress in SPB 1'
+				  },
+				  {
+					src: 'https://ads.capito.tn/sites/default/files/styles/large/public/vehicles-ads-photos/1_2.jpg',
+					title: 'Peter & Paul fortress in SPB 2'
+				  },
+				  {
+					src: 'https://ads.capito.tn/sites/default/files/styles/large/public/vehicles-ads-photos/1_2.jpg',
+					title: 'Peter & Paul fortress in SPB 1'
+				  },
+				  {
+					src: 'https://ads.capito.tn/sites/default/files/styles/large/public/vehicles-ads-photos/FB_IMG_1680696145220.jpg',
+					title: 'Peter & Paul fortress in SPB 1'
+				  },
+				  {
+					src: 'https://ads.capito.tn/sites/default/files/styles/large/public/vehicles-ads-photos/FB_IMG_1680696145220.jpg',
+					title: 'Peter & Paul fortress in SPB 1'
+				  }
+				],
+				gallery: {
+				  enabled: true
+				},
+				type: 'image' // this is a default type
+			});
+    });
+  </script>

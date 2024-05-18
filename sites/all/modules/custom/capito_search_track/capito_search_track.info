@@ -1,0 +1,7 @@
+name = CAPITO SEARCH TRACK
+description = Implements search track module that stores search of particular or professional user in seach node.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = capito_search_track.install
+files[] = capito_search_track.module

@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file hide_cota.module
+ */
+/**
+ * Implements hook_form_alter().
+ */
+function hide_cota_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    // Check if the form is for the vehicle_ad content type.
+    if ($form_id == 'vehicle_ad_node_form') {
+        // Check if the user has particular or professional roles.
+        if (in_array('particular', $user->roles) || in_array('professional', $user->roles)) {
+            // Hide the specified fields.
+            if (isset($form['field_min_cota_vehicle_ad'])) {
+                $form['field_min_cota_vehicle_ad']['#access'] = FALSE;
+            }
+            if (isset($form['field_max_cota_vehicle_ad'])) {
+                $form['field_max_cota_vehicle_ad']['#access'] = FALSE;
+            }
+        }
+    }
+}

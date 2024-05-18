@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Responsive menu</title>
+</head>
+<body>
+<style>
+    #site-menu-wrapper a {
+        text-decoration: none;
+    }
+    nav.site-menu a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+    #site-menu-wrapper {
+        display: none;
+        margin: 0;
+    }
+
+    @media only screen and (min-width: 100px) and (max-width: 1100px) {
+        #toggled-icon {
+            display: block;
+            position: sticky;
+            background-color: transparent;
+            color: #000000;
+            top: 0px;
+            float: right;
+            z-index: 1000;
+            font-size: 50px;
+            padding-right: 5px;
+        }
+        #site-menu-wrapper {
+            display: block;
+        }
+        nav.site-menu {
+            height: 100%;
+            min-height: 1000px;
+            width: 0%;
+            overflow-x: hidden;
+            background-color: #ec5a13;
+            transform: translateX(-100%);
+        }
+        nav.site-menu li {
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid #dfdfdf;
+            padding-bottom: 5px;
+        }
+        nav.site-menu li:first-child {
+            width: 95%;
+            height: auto;
+            border-bottom: 1px solid #dfdfdf;
+        }
+        nav.site-menu a {
+            text-align: left;
+            text-indent: 10px;
+            padding: 2px;
+        }
+        nav.site-menu a:first-child {
+            text-align: center;
+            text-indent: 10px;
+            padding: 2px;
+        }
+        nav.site-menu.responsive {
+            overflow-x: visible;
+            background-color: #ec5a13;
+            width: 100%;
+            animation: slideIn 0.3s forwards ease;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0%);
+            }
+        }
+
+
+    }
+</style>
+<div id="site-menu-wrapper">
+    <!-- toggled menu icon -->
+    <a href="javascript:void(0);" id="toggled-icon" onclick="toggleMenu()">
+        &#9776;
+    </a>
+    <!-- toggled menu icon -->
+    <nav class="site-menu">
+        <a href="https://ads.capito.tn"><li><img width="200px" height="60px" src="https://ads.capito.tn/sites/all/themes/custom/capito/logo.png" alt="Home"></li></a>
+        <a href="https://ads.capito.tn"><li>Accueil</li></a>
+        <a href="https://ads.capito.tn"><li>Déposer une annonce</li></a>
+        <a href="https://ads.capito.tn"><li>Rechercher</li></a>
+        <a href="https://ads.capito.tn"><li>Immobilier</li></a>
+        <a href="https://ads.capito.tn"><li>Véhicules</li></a>
+        <a href="https://ads.capito.tn"><li>Locations de vacances</li></a>
+        <a href="https://ads.capito.tn"><li>Emploi</li></a>
+        <a href="https://ads.capito.tn"><li>Mode</li></a>
+        <a href="https://ads.capito.tn"><li>Maison & Jardin</li></a>
+        <a href="https://ads.capito.tn"><li>Famille</li></a>
+        <a href="https://ads.capito.tn"><li>Électronique</li></a>
+        <a href="https://ads.capito.tn"><li>Loisirs</li></a>
+        <a href="https://ads.capito.tn"><li>Autres</li></a>
+    </nav>
+</div>
+<script>
+    function toggleMenu() {
+        // Get the element with the class you want to change
+        var element = document.querySelector('.site-menu');
+        var toggledIcon = document.getElementById("toggled-icon");
+
+        if (element.className === "site-menu") {
+            element.className += " responsive";
+            toggledIcon.innerHTML = "&#215;";
+        } else {
+            element.className = "site-menu";
+            toggledIcon.innerHTML = "&#9776;";
+        }
+    }
+</script>
+</body>
+</html>

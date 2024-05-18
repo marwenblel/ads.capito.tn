@@ -1,0 +1,128 @@
+<?php
+/**
+ * @file
+ * The Top Real Estates module.
+ */
+/**
+ * Implements hook_block_info().
+ * @return array
+ */
+function top_real_estates_block_info() {
+    $blocks = array();
+    $blocks['top_re'] = array(
+        'info'  => t('TOP REAL ESTATES'),
+        'cache' => DRUPAL_CACHE_GLOBAL,
+    );
+    return $blocks;
+}
+/**
+ * @param string $delta
+ * Implements hook_block_view().
+ * @return array
+ */
+function top_real_estates_block_view($delta = '') {
+    global $base_url;
+    $block = array();
+    switch ($delta) {
+        case 'top_re':
+          $variables = array();
+          $variables['slick_real_estates'] = $base_url.'/sites/all/libraries/slick';
+          $variables['slick_real_estates_data'] = _get_last_real_estate_ads();
+
+          $block['subject'] = '';
+          $block['content'] = theme('slick_real_estates', $variables);
+          break;
+    }
+    return $block;
+}
+
+/**
+ * Implements hook_theme().
+ * @return array
+ */
+function top_real_estates_theme() {
+    return array(
+        'slick_real_estates' => array(
+            'variables' => array(),
+            'template'  => 'slick_real_estates',
+        ),
+    );
+}
+/**
+ * Implements _get_last_real_estate_ads().
+ * @return array
+ */
+function _get_last_real_estate_ads() {
+  $last_9_real_estate_ads = array();
+  // Define the query to fetch nodes of type "vehicle_ad".
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'vehicle_ad')
+    ->propertyOrderBy('created', 'DESC')
+    ->range(0, 9);
+  $result = $query->execute();
+
+  // Check if any nodes were found.
+  if (isset($result['node'])) {
+    $node_ids = array_keys($result['node']);
+    $nodes = node_load_multiple($node_ids);
+    foreach ($nodes as $node) {
+        $last_9_real_estate_ads[$node->nid]['title'] = $node->title;
+        if(isset($node->field_photos_vehicle_ad['und'][0]['uri'])) {
+            $image_uri = $node->field_photos_vehicle_ad['und'][0]['uri'];
+            // Convert the URI to a URL
+            $image_url = file_create_url($image_uri);
+            $last_9_real_estate_ads[$node->nid]['image'] = $image_url;
+        } else {
+            $last_9_real_estate_ads[$node->nid]['image'] = drupal_get_path('module', 'top_real_estates').'/images/no-image.jpg';
+        }
+      $last_9_real_estate_ads[$node->nid]['url']       = url('node/' . $node->nid);
+      $last_9_real_estate_ads[$node->nid]['price']     = $node->field_price_vehicle_ad['und'][0]['value'];
+      $last_9_real_estate_ads[$node->nid]['date']      = get_date_time_in_french3($node->created);
+    }
+  }
+  return $last_9_real_estate_ads;
+
+}
+
+/**
+ * Get date and time in French language.
+ *
+ * @param int $timestamp
+ *   The Unix timestamp.
+ *
+ * @return string
+ *   The formatted date and time in French language.
+ */
+function get_date_time_in_french3($timestamp) {
+    // Days translation array from English to French.
+    $days_translation = array(
+        'Monday' => 'Lundi',
+        'Tuesday' => 'Mardi',
+        'Wednesday' => 'Mercredi',
+        'Thursday' => 'Jeudi',
+        'Friday' => 'Vendredi',
+        'Saturday' => 'Samedi',
+        'Sunday' => 'Dimanche',
+    );
+    // Months translation array from English to French.
+    $months_translation = array(
+        'January' => 'Janvier',
+        'February' => 'Février',
+        'March' => 'Mars',
+        'April' => 'Avril',
+        'May' => 'Mai',
+        'June' => 'Juin',
+        'July' => 'Juillet',
+        'August' => 'Août',
+        'September' => 'Septembre',
+        'October' => 'Octobre',
+        'November' => 'Novembre',
+        'December' => 'Décembre',
+    );
+
+    // Format the date and time manually using the translation arrays.
+    $formatted_date = $days_translation[date('l', $timestamp)] . ' ' . date('d', $timestamp) . ' ' . $months_translation[date('F', $timestamp)] . ' ' . date('Y H:i', $timestamp);
+
+    return $formatted_date;
+}

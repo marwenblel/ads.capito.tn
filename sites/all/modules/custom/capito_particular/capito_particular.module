@@ -1,0 +1,48 @@
+<?php
+/**
+ * @file
+ * Main file, which implements main functionnalities for the capito particular module .
+ *
+ * @ingroup capito particular
+ */
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function capito_particular_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    if (in_array("particular", $user->roles)) {
+        if($form_id == 'vehicle_ad_node_form') {
+            // DO1
+            drupal_set_title("Déposer une annonce véhicule en tanque particulier");
+        }
+        if($form_id == 'user_profile_form') {
+
+
+           // set default value if account type to particular
+           $form['field_account_type']['und']['#default_value'][0] = 'particular';
+            // DO1
+            /*unset($form['field_name_company']);
+            unset($form['field_siret_company']);
+            unset($form['field_email_company']);
+            unset($form['field_phone_company']);*/
+        }
+
+    }
+}
+
+
+/**
+ * Implements hook_user_view_alter().
+ */
+function capito_particular_user_view_alter(&$build) {
+    global $user;
+    if (in_array("particular", $user->roles)) {
+        unset($build['field_name_company']);
+        unset($build['field_siret_company']);
+        unset($build['field_email_company']);
+        unset($build['field_phone_company']);
+    }
+}
+

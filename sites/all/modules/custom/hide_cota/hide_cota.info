@@ -1,0 +1,6 @@
+name = HIDE COTA
+description = Implements hide cota module.
+package = Custom
+version = 1.0
+core = 7.x
+files[] = hide_cota.module

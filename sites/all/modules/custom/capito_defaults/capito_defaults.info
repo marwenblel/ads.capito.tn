@@ -1,0 +1,6 @@
+name = CAPITO DEFAULTS
+description = Implements specifics functionnalities for capito defaults module.
+package = Custom
+version = VERSION
+core = 7.x
+files[] = capito_defaults.module

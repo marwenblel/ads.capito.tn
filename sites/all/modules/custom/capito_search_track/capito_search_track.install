@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function capito_search_track_install() {
+    // Define the schema for the custom table
+    $schema['capito_search_vehicle'] = array(
+        'description' => 'Stores search data for users',
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'description' => 'Primary Key: Unique identifier for search entry.',
+            ),
+            'uid' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+                'description' => 'User ID of the user who performed the search.',
+            ),
+            'search_params' => array(
+                'type' => 'text',
+                'not null' => TRUE,
+                'description' => 'Serialized array of search parameters.',
+            ),
+            'timestamp' => array(
+                'type' => 'int',
+                'not null' => TRUE,
+                'description' => 'Timestamp of when the search was performed.',
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    // Create the table in the database
+    db_create_table('capito_search_vehicle', $schema['capito_search_vehicle']);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function capito_search_track_uninstall() {
+    // Remove the custom table from the database
+    db_drop_table('capito_search_vehicle');
+}

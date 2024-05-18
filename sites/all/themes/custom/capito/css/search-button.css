@@ -1,0 +1,70 @@
+#search-ad {
+    width: 0;
+    transition: width 0.5s ease;
+}
+#search-ad {
+    z-index: 1000;
+    border-color: transparent;
+    outline: none;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #f0f2f5;
+    min-width: 11rem;
+    position: absolute;
+    height: 45px;
+    top: 0px;
+}
+#search-ad:hover {
+    border-color: transparent; /* Change border color on hover */
+}
+
+#search-ad:focus {
+    border-color: transparent; /* Change border color on focus */
+    outline: none; /* Remove default focus outline */
+}
+#search-ad.hidden {
+    width: 12rem;
+}
+#search-ad.expanded {
+    width: 40rem;
+}
+/*
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+    #search-ad.hidden {
+        width: 45%;
+        min-width: 150px;
+    }
+    #search-ad.expanded {
+        width: 50%;
+    }
+}*/
+/*
+@media only screen and (min-width: 901px) and (max-width: 1100px) {
+    #search-ad.hidden {
+        width: 60%;
+        min-width: 150px;
+    }
+    #search-ad.expanded {
+        width: 65%;
+    }
+}*/
+/*
+@media only screen and (min-width: 1101px) and (max-width: 1500px) {
+    #search-ad.hidden {
+        width: 20%;
+        min-width: 150px;
+    }
+    #search-ad.expanded {
+        width: 55%;
+    }
+}*/
+/*
+@media only screen and (min-width: 1501px) {
+    #search-ad.hidden {
+        width: 20%;
+        min-width: 150px;
+    }
+    #search-ad.expanded {
+        width: 55%;
+    }
+}*/

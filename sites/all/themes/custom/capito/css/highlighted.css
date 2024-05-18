@@ -1,0 +1,29 @@
+#highlighted {
+    border: none;
+}
+#highlighted #block-top-categories-top-cat {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#highlighted #block-top-cars-top-c {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#highlighted #block-top-motos-top-m {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#highlighted #block-top-real-estates-top-re {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+#highlighted .block h2 {
+    font-weight: bolder;
+}
+/*
+@media only screen and (min-width: 100px) and (max-width: 1100px) {
+    #highlighted .region-highlighted #block-block-10,
+    #highlighted .region-highlighted #block-block-11 {
+        display: none!important;
+    }
+}*/

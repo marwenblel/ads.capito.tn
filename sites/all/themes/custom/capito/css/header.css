@@ -1,0 +1,168 @@
+/*CSS FOR HEADER TPL*/
+#header-wrapper {
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dfdfdf;
+}
+#header {
+    background-image: none;
+    background-color: #ec5a13;
+    height: 65px;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#header a,
+#header label,
+#header span,
+#header input[type="text"] {
+
+}
+#header div.section {
+    padding-left: 10px;
+}
+#header #logo {
+    float: left; /* LTR */
+}
+#header .region-header {
+    margin: 0px;
+    padding: 5px;
+}
+#header .region-header .block {
+    display: inline-block;
+    margin-top:10px;
+}
+.region-header .block:last-child {
+
+}
+#header .region-header,
+#header .region-header a,
+#header .region-header li a.active {
+    color: #fffeff;
+}
+
+/** CSS FOR: DEPOSER ANNONCE **/
+#header .region-header #block-block-1 {
+
+}
+#header .region-header #block-block-1 .content {
+    webkit-align-self: center;
+    align-self: center;
+    background-color: #ec5a13;
+    border-radius: 4px;
+    color: #fff;
+    -webkit-transition: background-color .3s;
+    -moz-transition: background-color .3s;
+    transition: background-color .3s;
+}
+#header .region-header #block-block-1  a {
+    display: inline-block;
+    height: auto;
+    padding: 10px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.5;
+    font-family: Open Sans,sans-serif,Arial;
+}
+#header .region-header #block-block-2{
+    width: 120px;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+}
+#header .region-header #block-block-2 .fa.fa-search {
+    vertical-align: -moz-middle-with-baseline;
+}
+#header .region-header #block-block-2 .fa.fa-search::after {
+    content: "a";
+    visibility: hidden;
+}
+#header .region-header #block-block-2  a {
+    display: inline-block;
+    margin-left: 170px;
+    height: auto;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    font-family: Open Sans,sans-serif,Arial;
+}
+/** CSS FOR: MES RECHERCHES ET FAVORIS **/
+#header .region-header #block-block-3 {
+    float: right;
+    margin-right: 10px;
+}
+#header .region-header #block-block-3 ul a {
+    float: left;
+}
+#header .region-header #block-block-3 ul li {
+    float: left;
+    margin-right: 20px;
+}
+#header .region-header #block-block-3 ul li i.fa-bell,
+#header .region-header #block-block-3 ul li i.fa-heart,
+#header .region-header #block-block-3 ul li i.fa-bullhorn {
+    display: block;
+    text-align: center;
+}
+/** CSS FOR: SE CONNECTER **/
+#header .region-header #block-block-4 {
+    float: right;
+    margin-right: 20px;
+}
+#header .region-header #block-block-4 ul a {
+    float: left;
+}
+#header .region-header #block-block-4 ul li {
+    float: left;
+    margin-left: 10px;
+    font-size: 15px;
+}
+#header .region-header #block-block-4 ul li i.fa-user {
+    display: block;
+    text-align: center;
+}
+/** CSS FOR: USER CONNECTED MENU **/
+#header .region-header #block-block-5 {
+    float: right;
+    margin-right: 20px;
+}
+#header .region-header #block-block-5 ul a {
+    float: left;
+}
+#header .region-header #block-block-5 a {
+    color: #000000!important;
+}
+#header .region-header #block-block-5 .dropdown-menu.show {
+    margin-left: -70px!important;
+}
+#header .region-header #block-block-5 .dropdown-toggle {
+    background-color: #ec5a13;
+    border-color: white;
+}
+#header .region-header #block-block-5 .btn-secondary:focus {
+    box-shadow: 0 0 0 .2rem #ffffff;
+    border-color: #ec5a13;
+}
+#header .region-header #block-block-5 ul li {
+    float: left;
+    margin-left: 10px;
+    font-size: 20px;
+}
+#header .region-header #block-block-5 ul li i.fa-user-circle-o,
+#header .region-header #block-block-5 ul li i.fa-sign-out {
+    display: block;
+    text-align: center;
+}
+
+
+/*@media only screen and (min-width: 1701px) {
+    #header .region-header #block-block-3 {
+        height: 30px;
+        margin-left: 25%!important;
+    }
+}*/
