@@ -60,3 +60,46 @@
         margin-right: auto;
     }
 }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* entre 0 et 980px */
+@media only screen and (min-width: 100px) and (max-width: 980px) {
+    #block-block-1,
+    #block-block-3,
+    #block-block-5,
+    #block-block-10,
+    #block-block-11 {
+        display: none!important;
+    }
+    body,
+    #page-wrapper,
+    #header-wrapper,
+    #main-wrapper,
+    #triptych-wrapper,
+    #footer-wrapper {
+        width: 100vw;
+        margin: 0px;
+    }
+
+    input#search-ad {
+        width: 50vw!important;
+    }
+}

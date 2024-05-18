@@ -8,6 +8,8 @@
     }
 
     #block-top-categories-top-cat .slick-slide img {
+        min-width: 60px;
+        min-height: 100px;
         width: 100%;
     }
     #block-top-categories-top-cat .slick-slide img:hover {
