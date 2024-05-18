@@ -4,6 +4,9 @@
     overflow: auto;
   }
 </style>
+<div class="top-link">
+    <a href="">Voir plus d'annonces&nbsp;&rarr;</a>
+</div>
 <section class="regular slider">
 <?php foreach($variables['slick_motos_data'] as $key => $value) {?>
   <div class="moto-ad">
@@ -18,11 +21,6 @@
   </div>
 <?php }?>
 </section>
-
-<!-- we have comment this because file already called in top categories module
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="<?php //echo $variables['slick_cars'];?>/slick.js" type="text/javascript"></script>
--->
 <script type="text/javascript">
     $(document).on('ready', function() {
 		

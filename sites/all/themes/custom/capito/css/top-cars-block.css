@@ -1,0 +1,12 @@
+#block-top-cars-top-c .content {
+    margin-top: 0px;
+}
+#block-top-cars-top-c .top-link {
+    padding: 10px;
+    text-align: end;
+}
+#block-top-cars-top-c .top-link a {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000000;
+}

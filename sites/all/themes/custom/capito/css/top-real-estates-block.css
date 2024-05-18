@@ -1,0 +1,12 @@
+#block-top-real-estates-top-re .content {
+    margin-top: 0px;
+}
+#block-top-real-estates-top-re .top-link {
+    padding: 10px;
+    text-align: end;
+}
+#block-top-real-estates-top-re .top-link a {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #000000;
+}

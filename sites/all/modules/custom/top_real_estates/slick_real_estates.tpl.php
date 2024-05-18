@@ -4,6 +4,9 @@
     overflow: auto;
   }
 </style>
+<div class="top-link">
+    <a href="">Voir plus d'annonces&nbsp;&rarr;</a>
+</div>
 <section class="regular slider">
 <?php foreach($variables['slick_real_estates_data'] as $key => $value) {?>
   <div class="real-estate-ad">

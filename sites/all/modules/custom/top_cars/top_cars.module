@@ -29,19 +29,9 @@ function top_cars_block_view($delta = '') {
 
     switch ($delta) {
         case 'top_c':
-
           $variables = array(); //do stuff here
-
-
-
-
-
-
           $variables['slick_cars'] = $base_url.'/sites/all/libraries/slick';
           $variables['slick_cars_data'] = _get_last_car_ads();
-
-
-
           $block['subject'] = '';
             $block['content'] = theme('slick_cars', $variables);
             break;

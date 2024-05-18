@@ -25,6 +25,10 @@ stylesheets[all][]   = css/new-ad-page.css
 stylesheets[all][]   = css/add-vehicle-page.css
 stylesheets[all][]   = css/user-ads.css
 
+stylesheets[all][]   = css/top-cars-block.css
+stylesheets[all][]   = css/top-motos-block.css
+stylesheets[all][]   = css/top-real-estates-block.css
+
 
 stylesheets[all][]   = css/responsive.css
 

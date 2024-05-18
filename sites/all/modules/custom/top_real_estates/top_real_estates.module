@@ -10,7 +10,7 @@
 function top_real_estates_block_info() {
     $blocks = array();
     $blocks['top_re'] = array(
-        'info'  => t('TOP REAL ESTATES'),
+        'info'  => t('Top real estates'),
         'cache' => DRUPAL_CACHE_GLOBAL,
     );
     return $blocks;
