@@ -7,7 +7,7 @@
 <div class="top-link">
     <a href="">Voir plus d'annonces&nbsp;&rarr;</a>
 </div>
-<section class="regular slider">
+<section class="top-real-estates regular slider">
 <?php foreach($variables['slick_real_estates_data'] as $key => $value) {?>
   <div class="real-estate-ad">
     <div class="field field-image">
@@ -23,11 +23,11 @@
 </section>
 <script type="text/javascript">
     $(document).on('ready', function() {
-		$(".regular").slick({
+		$(".top-real-estates.regular").slick({
         dots: true,
         infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToShow: 5,
+        slidesToScroll: 5
       });
     });
 </script>

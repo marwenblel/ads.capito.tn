@@ -7,7 +7,7 @@
 <div class="top-link">
     <a href="https://ads.capito.tn/search/vehicle-ad">Voir plus d'annonces&nbsp;&rarr;</a>
 </div>
-<section class="regular slider">
+<section class="top-cars regular slider">
 <?php foreach($variables['slick_cars_data'] as $key => $value) {?>
   <div class="car-ad">
     <div class="field field-image">
@@ -24,11 +24,11 @@
 <script type="text/javascript">
     $(document).on('ready', function() {
 		
-		$(".regular").slick({
+		$(".top-cars.regular").slick({
         dots: true,
         infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToShow: 5,
+        slidesToScroll: 5
       });
     });
 </script>

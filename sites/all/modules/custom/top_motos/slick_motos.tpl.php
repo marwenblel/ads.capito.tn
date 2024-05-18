@@ -7,7 +7,7 @@
 <div class="top-link">
     <a href="">Voir plus d'annonces&nbsp;&rarr;</a>
 </div>
-<section class="regular slider">
+<section class="top-motos regular slider">
 <?php foreach($variables['slick_motos_data'] as $key => $value) {?>
   <div class="moto-ad">
     <div class="field field-image">
@@ -24,11 +24,11 @@
 <script type="text/javascript">
     $(document).on('ready', function() {
 		
-		$(".regular").slick({
+		$(".top-motos.regular").slick({
         dots: true,
         infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToShow: 5,
+        slidesToScroll: 5
       });
     });
 </script>
