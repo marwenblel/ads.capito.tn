@@ -12,7 +12,7 @@
   <div class="real-estate-ad">
     <div class="field field-image">
       <a href="<?php echo $value['url']; ?>">
-        <img style="height: 300px;" src="<?php echo $value['image']; ?>">
+        <img style="height: 200px; border-radius: 5px;" src="<?php echo $value['image']; ?>">
       </a>
     </div>
     <div  class="field field-title"><?php echo $value['title']; ?></div>
